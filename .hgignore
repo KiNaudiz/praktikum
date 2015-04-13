@@ -1,0 +1,17 @@
+# use glob syntax.
+syntax: glob
+
+*.aux
+*.log
+*.toc
+#*/graphics/*.pdf
+*.pdf
+#*.un~
+*.swp
+*~
+bin
+*.orig
+
+# switch to regexp syntax.
+syntax: regexp
+^\.pc/
