@@ -247,7 +247,7 @@ In diesem Teilversuch wird ein kompensierter Spannungsteiler nach Abbildung
         \end{tikzpicture}
         \caption{reduziertes Schaltbild\\
             $Z_1=R_1+R_2'+i\,X_{C1}=R_1'+i\,X_{C1}$\\
-            $Z_2=R_2+R_3+i\,X_{C2}=R_2'+i\,X_{C2}$}
+            $Z_2=R_2+R_3+i\,X_{C2}=R_3'+i\,X_{C2}$}
     \end{subfigure}
     \caption{Kompensierter Spannungsteiler} \label{fig:SPT}
 \end{figure}
@@ -257,11 +257,11 @@ Folglich muss das Verhältnis $Z_1$ und $Z_2$ gerade $4:1$ sein.
 
 \begin{align}
     \frac{1}{Z_i}\,&=\,\frac{1}{R_i'}+i\omega C_i\qquad i\in\{1,2\}\\
-    4\,\left(\frac{1}{R_2'}+i\omega C_2\right)\,&=\,
+    4\,\left(\frac{1}{R_3'}+i\omega C_2\right)\,&=\,
     \frac{1}{R_1'}+i\omega C_1\\
     \label{eq:condfrac}
     \Rightarrow \frac{C_2}{C_1}\,&=\,4\\
-    \Rightarrow \frac{R_1'}{R_2'}\,&=\,4
+    \Rightarrow \frac{R_1'}{R_3'}\,&=\,4
 \end{align}
 
 Im kompensierten Fall ist die Relation (\ref{eq:condfrac}) erfüllt.
@@ -273,6 +273,238 @@ Messogerätes zu erhöhen, damit das Messobjekt weniger stark belastet wird,
 die Eingangskapazität zu senken, um bei Schaltsprüngen schneller den Endwert
 zu erreichen und eine frequenzunabhängige Messung ohne Verzerrungen zu
 ermöglichen.
+
+\subsection {Tastkopf}
+
+Der Tastkopf ist ein Instrument mit Messpitze,
+mit dem es möglich ist,
+Spannungen abzugreifen und am Oszilloskop zu messen.
+Der Tastkopf hat einen Widerstand $R_t$ und einen eingebauten
+verstellbaren Kondensator $C_t$.
+Zusammen mit Eingangskapazität $C_o$ und -widerstand $R_o$ vom
+Oszilloskop entsteht ein
+Schaltbild wie in Abbildung \ref{fig:Tastkopf}.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.6\textwidth}
+        \centering
+        \begin{tikzpicture}[%show background rectangle,
+        circuit ee IEC, circuit symbol lines/.style={draw,thick},
+        font=\sffamily\upshape,
+        >=latex % Voreinstellung für Pfeilspitzen
+        ]
+            \matrix (S) [
+                matrix of nodes, nodes in empty cells,
+                inner sep=0pt, outer sep=-.5\pgflinewidth,
+                column sep=20mm, row sep = 7mm,
+                nodes={minimum width=0pt}
+            ]
+            {
+                &&&  \\
+                &&&  \\
+                &&&  \\
+                &&&  \\
+                &&&  \\
+            };
+
+            % Bauteile
+            \draw   (S-5-2) to [resistor={info=$R_o$, name=R3}](S-3-2)
+                            to [resistor={info=$R_t$, name=R1}](S-1-2)
+                    (S-1-3) to [capacitor={info=$C_t$, name=C1}](S-3-3)
+                            to [capacitor={info=$C_o$,name=C2}](S-5-3);
+
+            % Leiter
+            \draw   (S-1-1) -- (S-1-3)
+                    (S-3-4) -- (S-3-2)
+                    (S-5-1) -- (S-5-4);
+
+            % Klemmen, Knoten
+            \draw [fill=white]  (S-1-1) circle (2pt)
+                                (S-5-1) circle (2pt)
+                                (S-3-4) circle (2pt)
+                                (S-5-4) circle (2pt);
+            \draw [fill=black]  (S-1-2) circle (2pt)
+                                (S-5-2) circle (2pt)
+                                (S-3-3) circle (2pt);
+
+            \draw   (S-3-1) node {$U_e$}
+                    (S-4-4) node {$U_a$};
+
+        \end{tikzpicture}
+        \caption{reales Schaltbild}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.35\textwidth}
+        \centering
+        \begin{tikzpicture}[%show background rectangle,
+        circuit ee IEC, circuit symbol lines/.style={draw,thick},
+        font=\sffamily\upshape,
+        >=latex % Voreinstellung für Pfeilspitzen
+        ]
+            \matrix (S) [
+                matrix of nodes, nodes in empty cells,
+                inner sep=0pt, outer sep=-.5\pgflinewidth,
+                column sep=20mm, row sep = 7mm,
+                nodes={minimum width=0pt}
+            ]
+            {
+                &&  \\
+                &&  \\
+                &&  \\
+                &&  \\
+                &&  \\
+            };
+
+            % Bauteile
+            \draw   (S-1-2) to [resistor={info=$Z_t$, name=Z1}](S-3-2)
+                            to [resistor={info=$Z_o$, name=Z2}](S-5-2);
+
+            % Leiter
+            \draw   (S-1-1) -- (S-1-2)
+                    (S-3-2) -- (S-3-3)
+                    (S-5-1) -- (S-5-3);
+
+            % Klemmen, Knoten
+            \draw [fill=white]  (S-1-1) circle (2pt)
+                                (S-5-1) circle (2pt)
+                                (S-3-3) circle (2pt)
+                                (S-5-3) circle (2pt);
+            \draw [fill=black]  (S-3-2) circle (2pt)
+                                (S-5-2) circle (2pt);
+
+            \draw   (S-3-1) node {$U_e$}
+                    (S-4-3) node {$U_a$};
+
+        \end{tikzpicture}
+        \caption{reduziertes Schaltbild\\
+            $Z_t=R_t+i\,X_t$\\
+            $Z_o=R_o+i\,X_o$}
+    \end{subfigure}
+    \caption{Tastkopf am Oszilloskop} \label{fig:Tastkopf}
+\end{figure}
+
+An der Ähnlichkeit zu Abbildung \ref{fig:SPT} sieht man, dass Tastkopf und
+Oszillator zusammen einen Spannungsteiler bilden.
+Durch eine Stellschraube lässt sich $C_t$ anpassen,
+sodass der kompensierte Zustand erreicht werden kann.
+
+\subsection {Wien-Brücke}
+
+Im letzten Teilversuch wird ein Wien-Brücken-Zweig nach Schaltbild
+in Abbildung \ref{fig:Wien} aufgebaut.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}{\textwidth}
+        \centering
+        \begin{tikzpicture}[%show background rectangle,
+        circuit ee IEC, circuit symbol lines/.style={draw,thick},
+        font=\sffamily\upshape,
+        >=latex % Voreinstellung für Pfeilspitzen
+        ]
+            \matrix (S) [
+                matrix of nodes, nodes in empty cells,
+                inner sep=0pt, outer sep=-.5\pgflinewidth,
+                column sep=12mm, row sep = 7mm,
+                nodes={minimum width=0pt}
+            ]
+            {
+                &&&&&&  \\
+                &&&&&&  \\
+                &&&&&&  \\
+            };
+
+            % Bauteile
+            \draw   (S-1-2) to [resistor={info=$R$, name=R1}](S-1-3)
+                            to [capacitor={info=$C$, name=C1}](S-1-5)
+                            to [resistor={info=$R$, name=R2}](S-3-5)
+                    (S-1-6) to [capacitor={info=$C$, name=C2}](S-3-6);
+
+            Leiter
+            \draw   (S-1-1) -- (S-1-2)
+                    (S-1-5) -- (S-1-7)
+                    (S-3-1) -- (S-3-7);
+
+            % Klemmen, Knoten
+            \draw [fill=white]  (S-1-1) circle (2pt)
+                                (S-3-1) circle (2pt)
+                                (S-1-7) circle (2pt)
+                                (S-3-7) circle (2pt);
+            \draw [fill=black]  (S-1-5) circle (2pt)
+                                (S-1-6) circle (2pt)
+                                (S-3-5) circle (2pt)
+                                (S-3-6) circle (2pt);
+
+            \draw   (S-2-1) node {$U_e$}
+                    (S-2-7) node {$U_a$};
+
+        \end{tikzpicture}
+        \caption{reales Schaltbild}
+    \end{subfigure}
+    \begin{subfigure}{\textwidth}
+        \centering
+        \begin{tikzpicture}[%show background rectangle,
+        circuit ee IEC, circuit symbol lines/.style={draw,thick},
+        font=\sffamily\upshape,
+        >=latex % Voreinstellung für Pfeilspitzen
+        ]
+            \matrix (S) [
+                matrix of nodes, nodes in empty cells,
+                inner sep=0pt, outer sep=-.5\pgflinewidth,
+                column sep=17mm, row sep = 7mm,
+                nodes={minimum width=0pt}
+            ]
+            {
+                &&&  \\
+                &&&  \\
+                &&&  \\
+            };
+
+            % Bauteile
+            \draw   (S-1-1) to [resistor={info=$Z_1$, name=Z1}](S-1-3)
+                            to [resistor={info=$Z_2$, name=Z2}](S-3-3);
+
+            % Leiter
+            \draw   (S-1-3) -- (S-1-4)
+                    (S-3-1) -- (S-3-4);
+
+            % Klemmen, Knoten
+            \draw [fill=white]  (S-1-1) circle (2pt)
+                                (S-3-1) circle (2pt)
+                                (S-1-4) circle (2pt)
+                                (S-3-4) circle (2pt);
+            \draw [fill=black]  (S-1-3) circle (2pt)
+                                (S-3-3) circle (2pt);
+
+            \draw   (S-2-1) node {$U_e$}
+                    (S-2-4) node {$U_a$};
+
+        \end{tikzpicture}
+        \caption{reduziertes Schaltbild}
+    \end{subfigure}
+    \caption{Wien-Brücken-Zweig}
+    \label{fig:Wien}
+\end{figure}
+
+Dieser besteht aus einem Hoch- und einem Tiefpass,
+ist also ein Bandpass,
+der genau einen bestimmtes Frequenzband durchlässt.
+
+Für die Übertragungsfunktion $\left(\frac{U_a}{U_e}\right)_{th}$
+im Fall gleicher Phase gilt:
+
+\begin{align}
+    Z_1 \,&=\,R+\frac{1}{i\omega C}\\
+    \frac{1}{Z_2} \,&=\,\frac{1}{R}+i\omega C\\
+    \nonumber
+    \left(\frac{U_a}{U_e}\right)_{th}\,=\,\frac{Z_2}{Z_1+Z_2}\,&=\,
+    \frac{1}{3+i\left(\omega RC-\frac{1}{\omega RC}\right)}
+\end{align}
+
+\begin{empheq}[box=\fbox]{align}
+    \omega\,&=\,\frac{1}{RC}=2\pi\nu\\
+    \left(\frac{U_a}{U_e}\right)_{th}\,&=\,\frac{1}{3}
+\end{empheq}
 
 \section {Durchführung}
 
@@ -363,6 +595,47 @@ die in Abbildung \ref{fig:SPTplot_fourier} auf Seite
     \label{fig:SPTplot_fourier}
 \end{figure}
 
+\subsection {Tastkopf}
+
+Der Tastkopf wird an das Oszilloskop angeschlossen und die Messspitze im
+Comp Probe Ausgang des Oszilloskops angehangen.
+Dort liegt $U_e$ als Rechteckspannung an.
+
+Das Frequensspektrum des von $U_a$, das einer Fouriertransformation entspringt,
+ist für kompensierten, über- und unterkompensierten Fall in
+Abbildung \ref{fig:Tastkopf_fourier} auf Seite \pageref{fig:Tastkopf_fourier}
+aufgetragen.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{graphics/tastkopf.eps}
+    \caption{Fouriertransformation von $U_a$ am Tastkopf}
+    \label{fig:Tastkopf_fourier}
+\end{figure}
+
+\subsection {Wien-Brücke}
+
+Am Oszilloskop werden die Frequenzen $\nu_i$ und Spannungen $U_{ei}$, $U_{ai}$
+gleichzeitig für die Phasenverschiebungen $\phi_1=-\frac{\pi}{4}$, $\phi_2=0$
+und $\phi_3=\frac{\pi}{4}$ gemessen.
+Die Kondensatoren haben eine Kapazität von $C=10~\mathrm{nF}$ und die
+Widerstände betragen $R=10~\mathrm{k\Omega}$.
+Die Ergebnisse sind in Tabelle \ref{tb:Wien} protokolliert.
+
+\begin{table}[!ht]
+    \centering
+    \caption{Phasenbeziehungen, Frequenzen und Spannungen am Wien-Brücken-Zweig}
+    \label{tb:Wien}
+    \begin{tabular}{c|r|r|r|r|r}
+        $i$&$\phi_i/^\circ$&$\nu_i/\mathrm{kHz}$&$U_{ei}/\mathrm U$
+        &$U_{ai}/\mathrm U$&$\left(\frac{U_a}{U_e}\right)_i$
+        \\\hline
+        1&$-45.6$&0.4899&3.02&0.72&0.24\\
+        2&0.7&1.7094&3.00&0.99&0.33\\
+        3&45.0&5.4980&3.00&0.70&0.23\\
+    \end{tabular}
+\end{table}
+
 \section {Auswertung}
 
 \subsection {RC-Glied}
@@ -413,11 +686,36 @@ Die korrekt gewählte Kapazität sorgt dafür,
 dass das Signal bei Schaltsprüngen nicht überschwingt (unterkompensiert) und
 auch nicht erst zum Endwert hinkriecht (überkompensiert).
 
-\pagebreak
-\section {Quellen}
-\begin{thebibliography}{999}
-\bibitem {WalterHerms} G. Walter und G. Herms, Einführung in die Behandlung von Messfehlern -- Ein Leitfaden für das Praktikum der Physik, Universität Rostock 2006d
-\end{thebibliography}
+\subsection {Tastkopf}
+
+Das gleiche Verhalten ist auch am Tastkopf zu sehen,
+der mit dem Oszilloskop ebenfalls einen Spannungsteilers bildet.
+Im überkompensierten Fall sind die Werte für größere Frequenzen deutlich
+geringer als im kompensierten Fall und im unterkompensierten sind sie am
+für größere Frequenzen am größten.
+
+\subsection {Wien-Brücke}
+
+Das erwartete Verhältnis von $\left(\frac{U_a}{U_e}\right)_{th}=\frac{1}{3}$
+entspricht dem gefundenen $\left(\frac{U_a}{U_e}\right)_2=0.33$ für die
+Phasenverschiebungen $\phi_2=0.7^\circ\approx0$.
+Diese Phasenverschiebungen liegt bei $\nu_2=1.7~\mathrm{kHz}$.
+Der theoretische Wert dieser Frequenz beträgt
+$\nu_{th}=\frac{1}{2\pi\,RC}=1.6~\mathrm{kHz}$.
+Theoretischer und praktisch ermittelter Wert liegen dicht beieinander.
+
+Auch zu beobachten ist, dass die Werte $U_{a1}$ und $U_{a3}$ für die
+Phasenrelationen $\phi_{1,2}\approx\pm45^\circ$ nah beieinander liegen,
+was eine Symmetrie der Spannung bezüglich der Phasenrelation vermuten lässt.
+Beide Spannungen liegen unterhalb von $U_{a2}$ für $\phi_2\approx0$,
+was daran liegt, dass es sich um einen Bandpass handelt,
+der von $\nu_2$ verschiedene Frequenzen abschwächt.
+
+% \pagebreak
+% \section {Quellen}
+% \begin{thebibliography}{999}
+% \bibitem {WalterHerms} G. Walter und G. Herms, Einführung in die Behandlung von Messfehlern -- Ein Leitfaden für das Praktikum der Physik, Universität Rostock 2006d
+% \end{thebibliography}
 
 \section {Anhang}
 
