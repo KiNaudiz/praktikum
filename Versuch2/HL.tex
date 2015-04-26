@@ -55,6 +55,10 @@ und anschließend eine Gleichrichterschaltung.
 \tableofcontents
 
 \pagebreak
+\listoffigures
+\listoftables
+
+\pagebreak
 \section {Einführung}
 
 Im Versuch untersucht werden eine einzelne Halbleiterdiode und eine
@@ -190,7 +194,8 @@ gezeigt.
         \end{tikzpicture}
         \caption{Sperrrichtung}
     \end{subfigure}
-    \caption{Ersatzschaltbild einer Halbleiterdiode\\
+    \caption[Ersatzschaltbild einer Halbleiterdiode]
+    {Ersatzschaltbild einer Halbleiterdiode\\
     $L_1,R_B$ -- Induktivität und Widerstand des Bauelementes\\
     $C_S$ -- Sperrschichtkapazit\\
     $C_D$ -- Diffusionskapazität\\
@@ -208,10 +213,11 @@ um die Sperrschichtkapazität $C_S$ aufzuladen.
 Diese Zeit $t_E$ heißt \emph{Sperrerholzeit}.
 Nach dieser Zeit stellt sich zudem ein endlicher \emph{Dunkelstrom} durch
 Diffusion von Ladungsträgern in Sperrrichtung ein.
-Die \emph{Sperrverzögerungszeit} vom Umklappen der Spannung bis zum
+Die \emph{Sperrverzögerungszeit} vom Umpolen der Spannung bis zum
 Nulldurchgang $t_s$ wird im Experiment in Abhängigkeit des Durchlass- und
 Sperrstroms ermittelt.
-In dieser Zeit ist der Sperrstrom konstant.
+In dieser Zeit ist der Sperrstrom konstant und die überschüssigen Ladungen
+der Sperrschichtkapazit werden abgetragen.
 
 \subsection {Gleichrichterschaltung}
 
@@ -300,7 +306,8 @@ aufgebaut.
         \draw[UPfeil=0.25em] ([yshift=-4mm]S-2-4.north) --
         ([yshift=-4mm]S-2-3.north) node[midway, anchor=north]{$U^-$};
     \end{tikzpicture}
-    \caption{Gleichrichterschaltung\\
+    \caption[Gleichrichterschaltung]
+    {Gleichrichterschaltung\\
     Verlauf unterschiedlicher Stromrichtungen durch Pfeile mit $U^\pm$ angegeben}
     \label{fig:Gleichrichter}
 \end{figure}
@@ -320,7 +327,7 @@ Die entstehende Spannung beinhaltet immer noch Oszillationen und wird
 \emph{Brummspannung} genannt.
 In diesem Fall übernimmt $R_{39}$ nur die Rolle eines Messwiderstandes.
 
-Ist $C_2\not0$, übernimmt dieser die Rolle des Ladekondensators
+Ist $C_2\not=0$, übernimmt dieser die Rolle des Ladekondensators
 und $C_1$ bildet mit $R_{39}$ einen Tiefpass, der das Signal weiter abflacht.
 Dieser Tiefpass wird \emph{Siebglied} genannt.
 as übrig bleiben sollte, ist eine gute Näherung an Gleichstrom.
@@ -331,7 +338,7 @@ in der ein Signal übertragen wird gegenüber der gesamten Periodendauer $T$,
 projiziert auf einen Vollwinkel.
 
 \begin{equation}
-    \Phi\,=\,\frac{t}{T}\,360^\circ
+    \Phi\,=\,\frac{t_1}{T}\,360^\circ
 \end{equation}
 
 \section {Durchführung}
@@ -356,9 +363,47 @@ $I_S=\frac{U_S}{R_v}=\frac{U_{p-2}-U_o}{R_v}$.
 Anschließend wird $U_u=1.49~\mathrm V$ konstantgehalten, $U_{p-p}$ und
 analog $I_D=\frac{U_o-U_D}{R_v}=\frac{U_{p-2}-U_u-U_D}{R_v}$ berechnet.
 
-% TODO: Wertetabellen
+Die Messung ist in Tabelle \ref{tab:Diode_Uo} und \ref{tab:Diode_Uu}
+protokolliert und Ergebnisse sind in Abbildung \ref{fig:HL_t_s} dargestellt.
 
-Die Ergebnisse sind in Abbildung \ref{fig:HL_t_s} dargestellt.
+\begin{table}[!ht]
+    \centering
+    \caption{Messwerte $t_s(I_D)$ für $U_o=1.51~\mathrm V=const$}
+    \label{tab:Diode_Uo}
+    \begin{tabular}{l|l|l|l}
+        $U_{p-p}/\mathrm V$&$t_s/\mathrm{\mu s}$
+        &$U_D/\mathrm{\mu s}$&$I_D/\mathrm{mI}$\\
+        \hline
+        7.1&1.09&430&0.56\\
+        6.6&1.374&440&0.51\\
+        6&1.516&440&0.45\\
+        5.5&1.788&425&0.4\\
+        5.1&2.25&425&0.36\\
+        4.48&2.55&420&0.298\\
+        3.99&3.245&430&0.249\\
+        3.51&3.91&430&0.201\\
+        3.06&5.3&420&0.156\\
+        2.49&7.31&420&0.099
+    \end{tabular}
+    \medskip
+    \caption{Messwerte $t_s(I_S)$ für $U_u=1.49~\mathrm V=const$}
+    \label{tab:Diode_Uu}
+    \begin{tabular}{l|l|l|l}
+        $U_{p-p}/\mathrm V$&$t_s/\mathrm{\mu s}$
+        &$U_D/\mathrm{\mu s}$&$I_S/\mathrm{mI}$\\
+        \hline
+        7.04&15.98&490&0.505\\
+        6.51&14.64&490&0.452\\
+        6.03&13.56&474&0.4056\\
+        5.51&12&461&0.3549\\
+        5.03&11.42&455&0.3075\\
+        4.5&9.84&448&0.2552\\
+        4.02&8.08&445&0.2075\\
+        3.5&6.02&416&0.1584\\
+        3.02&3.85&406&0.1114\\
+        2.49&1.746&368&0.0622\\
+    \end{tabular}
+\end{table}
 
 \begin{figure}[!ht]
     \begin{subfigure}{\textwidth}
@@ -376,6 +421,27 @@ Die Ergebnisse sind in Abbildung \ref{fig:HL_t_s} dargestellt.
     \label{fig:HL_t_s}
 \end{figure}
 
+Die Daten zum konstanten Durchlassstrom erinnern an exponentielles Verhalten.
+Daher wird ein Fit der Form $t_{s,fit}(I_S)=a_S\,\exp\left(b_S\,I_S\right)$
+mit folgenden Ergebnissen durchgeführt:
+
+\begin{align}
+    a_S \,&=\, \left(11.1\pm0.7\right)~\mathrm{\mu s}\\
+          &=\, 11.1\,\left(1\pm5.5\%\right)~\mathrm{\mu s}\\
+    b_S \,&=\, \left(-4.7\pm0.3\right)~\mathrm{mA^{-1}}\\
+          &=\, -4.7\,\left(1\pm5.8\%\right)~\mathrm{mA^{-1}}
+\end{align}
+
+Bei konstantem Sperrstrom zeigt sich annähernd lineares Verhalten mit
+$t_{s,fit}(I_D)=a_D+b_D\,I_D$.
+
+\begin{align}
+    a_D \,&=\, \left(0.9\pm0.6\right)~\mathrm{\mu s}\\
+          &=\, 0.9\,\left(1\pm61.4\%\right)~\mathrm{\mu s}\\
+    b_D \,&=\, \left(31.4\pm1.7\right)~\mathrm{ms\,A^{-1}}\\
+          &=\, 31.4\,\left(1\pm5.3\%\right)~\mathrm{ms\,A^{-1}}
+\end{align}
+
 \subsection {Gleichrichterschaltung}
 
 Für die massenfreien Spannungsversorgung wird ein Transformator von Netzspannung
@@ -386,7 +452,8 @@ Zunächst sei $C_2=0$ und $R_{39}=R_{39}'=39~\Omega$.
 Gemessen werden die Spannungen über die Messwiderstände $R_{39}$, $R_{39}'$
 und den Lastwiderstand $R_L$,
 namentlich $U_R$, $U_C$ und $U_a$.
-Das Signal $U_C$ wird invertiert, da man an dieser Stelle gegen den Strom misst.
+Das Signal $U_C$ und $U_a$ werden invertiert,
+da man an diesen Stellen gegen den Strom misst.
 Aus diesem Messgrößen lassen sich die Ströme über Dioden, Kondensator und
 Signalausgang berechnen.
 
@@ -400,43 +467,10 @@ Für $C_1=0$ und $C_1=10~\mathrm{\mu F}$ sind die Spannungssignale in Abbildung
 \ref{fig:Gleichrichter_U} und die Ströme in Abbildung
 \ref{fig:Gleichrichter_I} ab Seite \pageref{fig:Gleichrichter_U} dargestellt.
 
-\begin{figure}[!ht]
-    \begin{subfigure}{\textwidth}
-        \centering
-        \includegraphics[width=0.7\textwidth]{graphics/gleichrichter_0F.eps}
-        \caption{$C_1=0$}
-    \end{subfigure}
-    \begin{subfigure}{\textwidth}
-        \centering
-        \includegraphics[width=0.7\textwidth]{graphics/gleichrichter_10uF.eps}
-        \caption{$C_1=10~\mathrm{\mu F}$}
-    \end{subfigure}
-    \caption{Spannungen im Gleichrichter mit $C_2=0$ und $R_{39}'=R_{39}$ für
-        die Fälle $C_1=0$ und $C_1=10~\mathrm{\mu F}$}
-    \label{fig:Gleichrichter_U}
-\end{figure}
-
-\begin{figure}[!ht]
-    \begin{subfigure}{\textwidth}
-        \centering
-        \includegraphics[width=0.7\textwidth]
-            {graphics/gleichrichter_strom_0F.eps}
-        \caption{$C_1=0$}
-    \end{subfigure}
-    \begin{subfigure}{\textwidth}
-        \centering
-        \includegraphics[width=0.7\textwidth]
-            {graphics/gleichrichter_strom_10uF.eps}
-        \caption{$C_1=10~\mathrm{\mu F}$}
-    \end{subfigure}
-    \caption{Ströme im Gleichrichter mit $C_2=0$ und $R_{39}'=R_{39}$ für
-        die Fälle $C_1=0$ und $C_1=10~\mathrm{\mu F}$}
-    \label{fig:Gleichrichter_I}
-\end{figure}
-
 Für $C_1=0$ ist das Signal an Widerstand $C_{39}$ und Ausgang zu gleichen Zeiten
 der Länge $t_{0,0}=608~\mathrm{ns}$ null.
-Aufgrund der angelegten $50~\mathrm{Hz}$ ist $T=10~\mathrm{ms}$.
+Aufgrund der angelegten $50~\mathrm{Hz}$ und halbperiodischer Signalumpolung
+ist $T=10~\mathrm{ms}$.
 Damit ist der Stromwinkel hier $\Phi_0=338^\circ$.
 
 Für $C_1=10~\mathrm{\mu F}$ ist $U_a$ nie null,
@@ -469,20 +503,146 @@ Die Spannungsverläufe sind in Abbildung \ref{fig:Gleichrichter_U2} aufgetragen.
     \end{tabular}
 \end{table}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{graphics/gleichrichter_spannungen.eps}
-    \caption{Spannungsverläufe $U_a$ im Gleichrichter für unterschiedliche
-    $C_1$ und $C_2$}
-    \label{fig:Gleichrichter_U2}
-\end{figure}
 
-
+\pagebreak
 \section {Auswertung}
 
-% TODO
+\subsection {Halbleiterdiode}
 
-% \pagebreak
+Für das Verhalten der Sperrverzögerungszeit in Abhängigkeit vom
+Durchlassstrom $t_s(I_D)$ wurde innerhalb des betrachteten Messbereiches
+$I_D\in(0.07,0.5)$ näherungsweise lineares Verhalten festgestellt.
+
+Für das Verhalten in Abhängigkeit vom Sperrstrom $I_s(I_S)$ hingegen
+sieht es im Messbereich $I_S\in(0.1,0.55)$ näherungsweise nach exponentiellem
+Verhalten aus.
+
+\begin{empheq}[box=\fbox]{align}
+    t_s(I_D)\,&\propto\,I_D\\
+    \ln t_s(I_S)\,&\propto\,-I_S
+\end{empheq}
+
+Dies ist in sofern logisch, dass die Sperrschichtkapazität $C_S$ in der Diode
+von der angelegten Spannung abhängig ist,
+mit höherer Spannung in Flussrichtung nimmt die Kapazität zu,
+während sie in Sperrrichtung näherungsweise konstant ist.
+Somit sorgt eine größere Durchlassspannung $U_D\propto I_D$ für eine höhere
+Sperrschichtkapazität $C_S$, in der mehr Ladungsträger gespeichert werden,
+die beim Umpolen wieder abgetragen werden müssen.
+Das Abtragen von mehr Ladungsträgern benötigt eine längere Zeit und somit
+steigt die Zeit $t_s(I_D)$ mit wachsendem $U_D\propto I_D$.
+Das lineare Verhalten ist lediglich eine Approximation und man kann im 
+Allgemeinen einen komplexeren theoretischen Verlauf vermuten,
+zumal die Diffusionskapazit $C_D$ ebenfalls eine signifikante Rolle spielen
+kann.
+
+Eine größere Sperrspannung $U_S\propto I_S$ wirkt sich additiv auf die
+Spannung innerhalb der Sperrschichtkapazität aus,
+sodass die Ladungsträger schneller abgetragen werden können.
+Ein exponentielles Verhalten erscheint in sofern realistisch,
+dass selbst bei sehr hohen Sperrspannungen $U_S$ noch eine endliche Zeit,
+die größer als Null ist, benötigt wird,
+um alle Ladungsträger abzutragen und die Sperrschichtkapazität durch
+ihr inneres Feld immer noch selbstständig Ladungsträger innerhalb einer
+endlichen Zeit abträgt, wenn keine äußere Spannung $U_S$ anliegt.
+Letzteres ist hierbei lediglich eine Näherung,
+da die Entladefunktion eines Kondensators nie Null erreicht,
+jedoch ist diese Approximation hier ausreichend.
+
+\subsection {Gleichrichterschaltung}
+
+Die Messergebnisse verdeutlichen gut, wie die Gleichrichterschaltung
+funktioniert.
+
+In Abbildung \ref{fig:Gleichrichter_I_0F} ist der Stromverlauf für
+$C_1=C_2=0$ darfestellt.
+Die angelegte Frequenz ist ein Sinus mit $\nu=50~\mathrm{Hz}$,
+also einer Periodendauer von $20~\mathrm{ms}$.
+Der Gleichrichter erlaubt nur eine Stromrichtung,
+indem der gegenpolige Strom durch Dioden so geleitet wird,
+dass er im restlichen Kreis in die gleiche Richtung fließt
+wie geichpoliger Strom.
+Dies ist in Abbildung \ref{fig:Gleichrichter} eingezeichnet.
+und theoretisch äquivalent zu einer Sinusbetragsfunktion.
+Die Periodendauer wird also halbiert auf:
+
+\begin{equation}
+    \boxed{T\,=\,10\mathrm{ms}}
+\end{equation}
+
+Der ermittelte Stromflusswinkel für diesen Fall gleicht jedoch nicht einem
+Vollwinkel, sondern wurde lediglich ermittelt als:
+
+\begin{equation}
+    \boxed{\Phi_0\,=\,338^\circ}
+\end{equation}
+
+Das liegt daran, dass an einer Diode erst eine bestimmte Schleusenspannung
+$U_{sch}$
+in Flussrichtung überschritten werden muss, damit diese Strom leitet.
+Solange der Betrag der eingehenden Spannung $U_e$ also unter diesem Wert liegt,
+fließt im Gleichrichter kein Strom.
+Die Schleusenspannung lässt sich über den Stromflusswinkel ausrechnen.
+$360^\circ-\Phi_0$ entspricht dem Anteil der Periodendauer,
+in der kein Strom durch die Diode fließt.
+Da die Spannung in der Zeit gleichermaßen auf 0 absinkt und wieder zu
+$U_{sch}$, muss dieser halbiert werden und da es sich nur um einen
+halben Sinus handelt, wird er erneut halbiert.
+Es liegen hinter dem Transformator $U_{e,eff}=6~\mathrm V$ an.
+
+\begin{align}
+    U_{sch}\,&=\,\sqrt2\,U_{e,eff}\,\sin\frac{360^\circ-\Phi_0}{4}\\
+    \alignedbox{U_{sch}\,}{=\,0.81~\mathrm V}
+\end{align}
+
+Die typischen Werte für Siliziumdioden liegen mit
+$U_{sch,Si}\approx0.7~\mathrm V$ recht nah.
+
+Wird nun ein Ladekondensator mit $C_1=10~\mathrm{\mu F}$ eingebaut,
+ändert sich die Situation, wie in Abbildung \ref{fig:Gleichrichter_I_10uF}
+zu sehen ist.
+Im Zeitraum $t\in(0,\frac{T}{2}=5~\mathrm{ms}$) innerhalb einer Periode
+lädt sich der Kondensator auf.
+Dies ist die Zeit, in der die Spannung $U_e$ monoton ansteigt.
+Dies geschieht durch den Strom, der durch die Dioden fließt.
+Für $t\in(\frac{T}{2}=5~\mathrm{ms},T=10~\mathrm{ms})$ sinkt die Spannung $U_e$,
+sodass das Feld im Kondensator überwiegt.
+Dieser entlädt sich und führt zu einem dauerhaft positiven Strom $I_a\not=0$.
+Während der Kondensator sich entlädt,
+müsste der Strom im Schaltbild links vom Kondensator entgegen der Spannung
+$U_e$ fließen,
+was jedoch in Sperrrichtung der Dioden wäre, sodass $I_D$ in diser Zeit null
+ist.
+Das Ergebnis ist ein voller Stromflusswinkel über $I_a$ und ungefähr ein
+halber Stromflusswinkel über $I_D$.
+
+\begin{empheq}[box=\fbox]{align}
+    \Phi_{10~\mu F,a}\,&=\,360^\circ\\
+    \Phi_{10~\mu F,D}\,&=\,186^\circ
+\end{empheq}
+
+Abbildung \ref{fig:Gleichrichter_U2} stellt die unterschiedlichen
+Spannungsverläufe von $U_a\propto I_a$ dar
+und zeigt gut, dass die Spannung im zweiten Fall nie null wird.
+Dennoch schwankt die Spannung noch stark und ist weit von Gleichstrom entfernt.
+Eine höhere Kapazität $C_1$ glättet das Signal etwas,
+doch erst ein Tiefpassfilter, bzw. Siebglied, glättet das Signal so,
+dass ein Signal geringer Varianz entsteht.
+Tabelle \ref{tb:Gleichrichter} zeigt, wie die Signalbreite $U_{p-p}$
+sich in den unterschiedlichen Fällen verändert.
+Mit Ladekondensator und Siebglied wird eine Signalbreite von lediglich
+$U_{p-p}=0.23~\mathrm V$ erreicht.
+Außerdem erreicht man mit Siebgleich einen hohen Spannungswert von
+$U_{avg}=8.06~\mathrm V$,
+während er durch einfaches Erhöhen der Kapazität am Ladekondensator absinkt.
+Man erreicht so also einen geringeren Leistungsverlust.
+Der Spitzenwert von $U_e$ liegt bei
+$U_{e,amp}=\sqrt2\cdot6~\mathrm V=8.49~\mathrm V$.
+Es gibt mit Lastwiderstand, Siebglied und Ladekondensator also nur etwa ein
+halbes Volt Verlust gegenüber diesem Wert.
+
+
+\pagebreak
 % \section {Quellen}
 % \begin{thebibliography}{999}
 % \bibitem {WalterHerms} G. Walter und G. Herms, Einführung in die Behandlung von Messfehlern -- Ein Leitfaden für das Praktikum der Physik, Universität Rostock 2006d
@@ -501,6 +661,50 @@ Die Spannungsverläufe sind in Abbildung \ref{fig:Gleichrichter_U2} aufgetragen.
         Steckbrett & 4
     \end{tabular}
 \end{table}
+
+\begin{figure}[!ht]
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=0.7\textwidth]{graphics/gleichrichter_0F.eps}
+        \caption{$C_1=0$}
+    \end{subfigure}
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=0.7\textwidth]{graphics/gleichrichter_10uF.eps}
+        \caption{$C_1=10~\mathrm{\mu F}$}
+    \end{subfigure}
+    \caption{Spannungen im Gleichrichter mit $C_2=0$ und $R_{39}'=R_{39}$ für
+        die Fälle $C_1=0$ und $C_1=10~\mathrm{\mu F}$}
+    \label{fig:Gleichrichter_U}
+\end{figure}
+
+\begin{figure}[!ht]
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=0.7\textwidth]
+            {graphics/gleichrichter_strom_0F.eps}
+        \caption{$C_1=0$}
+        \label{fig:Gleichrichter_I_0F}
+    \end{subfigure}
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=0.7\textwidth]
+            {graphics/gleichrichter_strom_10uF.eps}
+        \caption{$C_1=10~\mathrm{\mu F}$}
+        \label{fig:Gleichrichter_I_10uF}
+    \end{subfigure}
+    \caption{Ströme im Gleichrichter mit $C_2=0$ und $R_{39}'=R_{39}$ für
+        die Fälle $C_1=0$ und $C_1=10~\mathrm{\mu F}$}
+    \label{fig:Gleichrichter_I}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{graphics/gleichrichter_spannungen.eps}
+    \caption{Spannungsverläufe $U_a$ im Gleichrichter für unterschiedliche
+    $C_1$ und $C_2$}
+    \label{fig:Gleichrichter_U2}
+\end{figure}
 
 
 \end{document}

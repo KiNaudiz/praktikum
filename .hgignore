@@ -11,6 +11,8 @@ syntax: glob
 *~
 bin
 *.orig
+*.lot
+*.lof
 
 # switch to regexp syntax.
 syntax: regexp
