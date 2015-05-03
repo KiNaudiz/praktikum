@@ -1,0 +1,140 @@
+\documentclass[10pt,a4paper]{scrartcl}
+\usepackage[utf8x]{inputenc}
+\usepackage[english,german]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[format=plain,indention=1cm,font=sf ,labelfont=bf, nooneline,center]{caption}
+\renewcommand{\captionfont}{\sffamily \slshape}
+\renewcommand{\captionlabelfont}{ \sffamily \slshape \bfseries   }
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage{empheq}
+\usepackage{dcolumn}
+\usepackage{rotating}
+\newcolumntype{d}{D{.}{.}{-1} }
+
+\usepackage{tikz}
+\usetikzlibrary{circuits.ee.IEC,matrix,
+circuits.logic.US,
+circuits.logic.IEC,
+circuits.logic.CDH}
+
+% Quelle https://trucastuces.wordpress.com/2012/10/10/boxed-equations-in-latex/
+\newlength\dlf  % Define a new measure, dlf
+\newcommand\alignedbox[2]{
+    % Argument #1 = before & if there were no box (lhs)
+        % Argument #2 = after & if there were no box (rhs)
+        &  % Alignment sign of the line
+        {
+            \settowidth\dlf{$\displaystyle #1$}
+            % The width of \dlf is the width of the lhs, with a displaystyle font
+                \addtolength\dlf{\fboxsep+\fboxrule}
+            % Add to it the distance to the box, and the width of the line of the box
+                \hspace{-\dlf}
+            % Move everything dlf units to the left, so that & #1 #2 is aligned under #1 & #2
+                \boxed{#1 #2}
+            % Put a box around lhs and rhs
+        }
+}
+
+\title {Physikalisches Fortgeschrittenenpraktikum I\linebreak
+Halbleiterbauelemente}
+\author {\emph{Clemens Kurzenberg}\\212204196}
+\date {30.04.2015}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    %TODO
+\end{abstract}
+
+\tableofcontents
+
+\pagebreak
+\listoffigures
+\listoftables
+
+\pagebreak
+\section {Einführung}
+
+\subsection {Eigenschaften von Operationsverstärkern}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[%show background rectangle,
+    circuit ee IEC, circuit symbol lines/.style={draw,thick},
+    font=\sffamily\upshape, circuit logic US, %huge circuit symbols,
+    >=latex % Voreinstellung für Pfeilspitzen
+    ]
+        \matrix (S) [
+            matrix of nodes, nodes in empty cells,
+            inner sep=0pt, outer sep=-.5\pgflinewidth,
+            column sep=10mm, row sep = \tikzcircuitssizeunit,
+            nodes={minimum width=0pt}
+        ]
+        {
+            &&&&&&  \\
+            &&&&&&  \\
+            &&&&&&  \\
+            &&&&&&  \\
+            &&&&&&  \\
+            &&&&&&  \\
+            &&&&&&  \\
+        };
+
+        % Bauteile
+        \draw   (S-3-2) to
+                (S-1-2) to [resistor={info=$R_g$, name=Rg}](S-1-6)
+                (S-3-2) to [resistor={info=$R_T$, name=RT}](S-7-2)
+                (S-3-2) to [voltage source={info=$U_{img}$}, name=Ui](S-3-4)
+                        ;
+        \node [buffer gate={}](OP) at (S-4-5) {} ;
+
+        \draw[shorten >=1\tikzcircuitssizeunit] (S-3-4) --  (S-3-5)node[left=2.5pt]{\footnotesize-};
+        \draw[shorten >=1\tikzcircuitssizeunit] (S-5-4) -- (S-5-5)node[left=1.75pt]{\tiny +};
+        \draw[shorten <=2\tikzcircuitssizeunit] (S-4-5)% node[right=4.5pt]{\tiny +} --
+        -- (S-4-7);
+
+        % Leiter
+        \draw   (S-3-1) -- (S-3-2)
+                (S-3-1) -- (S-3-4)
+                ;
+
+        % Klemmen, Knoten
+        \draw [fill=white]  (S-3-1) circle (2pt)
+                            % (S-6-1) circle (2pt)
+                            (S-4-7) circle (2pt)
+                            % (S-3-4) circle (2pt)
+                            ;
+
+        % \draw [fill=black]  (S-1-3) circle (2pt)
+        %                     (S-3-3) circle (2pt);
+
+        \draw   (S-3-1) node [anchor=east] {$U_e$}
+                (S-4-7) node [anchor=west] {$U_a$};
+    \end{tikzpicture}
+    \caption{Halbleiterdiode im Wechselstromkreis} \label{fig:HL_Diode}
+\end{figure}
+
+
+\section {Durchführung}
+
+\section {Auswertung}
+
+
+
+\pagebreak
+% \section {Quellen}
+% \begin{thebibliography}{999}
+% \bibitem {WalterHerms} G. Walter und G. Herms, Einführung in die Behandlung von Messfehlern -- Ein Leitfaden für das Praktikum der Physik, Universität Rostock 2006d
+% \end{thebibliography}
+
+\section {Anhang}
+
+
+\end{document}
+%sagemathcloud={"zoom_width":100}
